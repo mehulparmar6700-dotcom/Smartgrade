@@ -207,7 +207,7 @@ export const MernStackView: React.FC = () => {
           }`}
         >
           <Layers className="w-4 h-4 text-[#5A6B5D]" />
-          <span>Local Data Tables ({dbMetrics?.collections?.students?.count || 60}+ records)</span>
+          <span>Active Datasets ({dbMetrics?.collections?.students?.count || 60}+ records)</span>
         </button>
 
         <button
@@ -219,7 +219,7 @@ export const MernStackView: React.FC = () => {
           }`}
         >
           <Terminal className="w-4 h-4 text-[#5A6B5D]" />
-          <span>Interactive Server Query Console</span>
+          <span>Data Query & Filter Engine</span>
         </button>
 
         <button
@@ -231,7 +231,7 @@ export const MernStackView: React.FC = () => {
           }`}
         >
           <Send className="w-4 h-4 text-[#5A6B5D]" />
-          <span>Express REST API Explorer</span>
+          <span>REST API Diagnostics</span>
         </button>
 
         <button
@@ -242,8 +242,8 @@ export const MernStackView: React.FC = () => {
               : 'text-[#8C847C] hover:text-[#4A443F]'
           }`}
         >
-          <Code2 className="w-4 h-4 text-[#5A6B5D]" />
-          <span>Local Full-Stack Architecture</span>
+          <Server className="w-4 h-4 text-[#5A6B5D]" />
+          <span>System Architecture</span>
         </button>
       </div>
 

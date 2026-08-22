@@ -9,7 +9,6 @@ import { AnalysisView } from './components/AnalysisView';
 import { VisualizationsView } from './components/VisualizationsView';
 import { PredictionView } from './components/PredictionView';
 import { ModelPerformanceView } from './components/ModelPerformanceView';
-import { PythonProjectExplorer } from './components/PythonProjectExplorer';
 import { VivaPrepView } from './components/VivaPrepView';
 import { PresentationView } from './components/PresentationView';
 import { DocumentationView } from './components/DocumentationView';
@@ -28,7 +27,7 @@ function AppContent() {
 
   const handleAddStudent = (newStudent: StudentRecord) => {
     setStudents(prev => [newStudent, ...prev]);
-    // Also sync with Express / MongoDB backend in background
+    // Also sync with Express backend in background
     fetch('/api/students', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -52,10 +51,6 @@ function AppContent() {
             summary={summary} 
             setActiveTab={setActiveTab} 
           />
-        )}
-
-        {activeTab === 'mern' && (
-          <MernStackView />
         )}
 
         {activeTab === 'dataset' && (
@@ -90,8 +85,8 @@ function AppContent() {
           />
         )}
 
-        {activeTab === 'code' && (
-          <PythonProjectExplorer />
+        {activeTab === 'mern' && (
+          <MernStackView />
         )}
 
         {activeTab === 'viva' && (
@@ -117,15 +112,16 @@ function AppContent() {
           <div>
             <span className="font-bold text-[#4A443F]">SmartGrade System</span> – Student Performance Analysis & Prediction
             <span className="block text-[#8C847C] text-[11px] mt-0.5">
-              Full-Stack MERN Architecture (MongoDB, Express, React, Node.js) & Python Scikit-Learn ML
+              Secure Academic Analytics Engine & Machine Learning Evaluation Platform
             </span>
           </div>
           <div className="flex items-center space-x-4 text-[11px]">
-            <button onClick={() => setActiveTab('mern')} className="hover:text-[#5A6B5D] font-medium transition-colors">MongoDB Studio</button>
-            <button onClick={() => setActiveTab('code')} className="hover:text-[#5A6B5D] font-medium transition-colors">Project Source</button>
-            <button onClick={() => setActiveTab('viva')} className="hover:text-[#5A6B5D] font-medium transition-colors">Viva Questions</button>
-            <button onClick={() => setActiveTab('presentation')} className="hover:text-[#5A6B5D] font-medium transition-colors">12-Slide PPT</button>
-            <button onClick={() => setActiveTab('docs')} className="hover:text-[#5A6B5D] font-medium transition-colors">Project Report</button>
+            <button onClick={() => setActiveTab('dashboard')} className="hover:text-[#5A6B5D] font-medium transition-colors">Dashboard</button>
+            <button onClick={() => setActiveTab('prediction')} className="hover:text-[#5A6B5D] font-medium transition-colors">Predictor</button>
+            <button onClick={() => setActiveTab('mern')} className="hover:text-[#5A6B5D] font-medium transition-colors">System Diagnostics</button>
+            <button onClick={() => setActiveTab('viva')} className="hover:text-[#5A6B5D] font-medium transition-colors">Viva Defense</button>
+            <button onClick={() => setActiveTab('presentation')} className="hover:text-[#5A6B5D] font-medium transition-colors">Slides</button>
+            <button onClick={() => setActiveTab('docs')} className="hover:text-[#5A6B5D] font-medium transition-colors">Report</button>
           </div>
         </div>
       </footer>

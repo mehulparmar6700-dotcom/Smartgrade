@@ -48,36 +48,36 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/15 text-[#F2EFE9] text-xs font-semibold mb-3 border border-white/20 backdrop-blur-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#D9A679]" />
-            <span>College Minor Project in Python & Machine Learning</span>
+            <span>Academic Performance Intelligence & Grade Forecasting Platform</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-white mb-2">
             SmartGrade: Student Performance Analysis & Prediction System
           </h1>
           <p className="text-[#E5E2DD] text-sm sm:text-base leading-relaxed mb-6">
-            A comprehensive, beginner-friendly system implementing data cleaning, statistical evaluation, Matplotlib visual analytics, and Scikit-Learn Linear Regression for student advising and college viva demonstration.
+            An intelligent academic platform providing cohort performance monitoring, predictive grade estimation, at-risk student intervention alerts, and comprehensive educational analytics.
           </p>
 
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setActiveTab('prediction')}
-              className="inline-flex items-center px-4 py-2 bg-[#D9A679] hover:bg-[#c99464] text-white text-sm font-semibold rounded-lg shadow-xs transition-all"
+              className="inline-flex items-center px-4 py-2.5 bg-[#D9A679] hover:bg-[#c99464] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition-all"
             >
               <TrendingUp className="w-4 h-4 mr-2" />
-              Try ML Predictor
+              Calculate Grade Forecast
             </button>
             <button
-              onClick={() => setActiveTab('viva')}
-              className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-semibold rounded-lg border border-white/20 transition-all"
+              onClick={() => setActiveTab('dataset')}
+              className="inline-flex items-center px-4 py-2.5 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold rounded-xl border border-white/20 transition-all"
             >
-              <HelpCircle className="w-4 h-4 mr-2 text-[#D9A679]" />
-              Prepare 32 Viva Questions
+              <Users className="w-4 h-4 mr-2" />
+              Student Directory
             </button>
             <button
-              onClick={() => setActiveTab('code')}
-              className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-semibold rounded-lg border border-white/20 transition-all"
+              onClick={() => setActiveTab('analysis')}
+              className="inline-flex items-center px-4 py-2.5 bg-white/15 hover:bg-white/25 text-white text-xs sm:text-sm font-semibold rounded-xl border border-white/20 transition-all"
             >
               <BookOpen className="w-4 h-4 mr-2" />
-              View Python Source Code
+              Statistical Insights
             </button>
           </div>
         </div>

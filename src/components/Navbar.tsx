@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { 
   GraduationCap, 
-  Download, 
   Code, 
   HelpCircle, 
   BookOpen, 
@@ -17,12 +16,8 @@ import {
   LogIn,
   LogOut,
   ChevronDown,
-  Layers,
-  ShieldCheck,
-  KeyRound
+  Layers
 } from 'lucide-react';
-import JSZip from 'jszip';
-import { ALL_PYTHON_FILES } from '../data/pythonCodeFiles';
 import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
@@ -32,58 +27,20 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   const { user, isAuthenticated, logout, openAuthModal, quickLogin } = useAuth();
-  const [downloading, setDownloading] = useState(false);
-  const [downloaded, setDownloaded] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-
-  const handleDownloadZip = async () => {
-    try {
-      setDownloading(true);
-      const zip = new JSZip();
-      
-      // Add all Python project files to the root of the ZIP
-      ALL_PYTHON_FILES.forEach(file => {
-        zip.file(file.path, file.content);
-      });
-
-      // Add a subfolder copy in data/ for convenience
-      const csvFile = ALL_PYTHON_FILES.find(f => f.filename === 'student_performance.csv');
-      if (csvFile) {
-        zip.folder('data')?.file('student_performance.csv', csvFile.content);
-      }
-
-      const content = await zip.generateAsync({ type: 'blob' });
-      const url = window.URL.createObjectURL(content);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'SmartGrade_Student_Performance_Python_Project.zip';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-
-      setDownloaded(true);
-      setTimeout(() => setDownloaded(false), 3000);
-    } catch (err) {
-      console.error('Failed to create ZIP', err);
-    } finally {
-      setDownloading(false);
-    }
-  };
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
-    { id: 'mern', label: 'Local Server & API', icon: Layers },
-    { id: 'dataset', label: 'Dataset & Cleaning', icon: Database },
+    { id: 'dataset', label: 'Student Directory', icon: Database },
     { id: 'analysis', label: 'Data Analysis', icon: LineChart },
     { id: 'visualizations', label: 'Visualizations', icon: BarChart3 },
-    { id: 'prediction', label: 'ML Prediction', icon: Calculator },
+    { id: 'prediction', label: 'Grade Predictor', icon: Calculator },
     { id: 'model', label: 'Model Evaluation', icon: Sparkles },
-    { id: 'code', label: 'Python Source & ZIP', icon: Code },
+    { id: 'mern', label: 'System Diagnostics', icon: Layers },
     { id: 'viva', label: 'Viva Prep (32 Q&A)', icon: HelpCircle },
-    { id: 'presentation', label: '12-Slide PPT', icon: Presentation },
+    { id: 'presentation', label: 'Presentation (PPT)', icon: Presentation },
     { id: 'docs', label: 'Project Report', icon: BookOpen },
-    { id: 'about', label: 'About', icon: Info },
+    { id: 'about', label: 'About & Profile', icon: Info },
   ];
 
   const getRoleBadge = (role: string) => {
@@ -98,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2DD] shadow-xs">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#E5E2DD] shadow-2xs">
       {/* Top Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -110,24 +67,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-bold text-lg text-[#4A443F] tracking-tight font-serif">SmartGrade</span>
-                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#F2EFE9] text-[#5A6B5D] border border-[#E5E2DD]">
-                  Node.js + Python ML
+                <span className="text-[11px] font-medium tracking-wide px-2.5 py-0.5 rounded-full bg-[#F2EFE9] text-[#5A6B5D] border border-[#E5E2DD]">
+                  Academic Edition
                 </span>
               </div>
               <p className="text-xs text-[#8C847C] hidden sm:block">
-                Student Performance Prediction System (Local Express Server & Python ML)
+                Student Performance Analysis & Prediction System
               </p>
             </div>
           </div>
 
-          {/* Quick Actions, User Auth & ZIP Download */}
-          <div className="flex items-center space-x-2.5">
+          {/* Quick Actions & User Auth */}
+          <div className="flex items-center space-x-3">
             {/* User Profile / Login Button */}
             {isAuthenticated && user ? (
               <div className="relative">
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center space-x-2 p-1.5 pr-3 rounded-xl bg-[#F9F8F6] hover:bg-[#F2EFE9] border border-[#E5E2DD] transition-all text-left"
+                  className="flex items-center space-x-2.5 p-1.5 pr-3 rounded-xl bg-[#F9F8F6] hover:bg-[#F2EFE9] border border-[#E5E2DD] transition-all text-left"
                 >
                   <div 
                     className="w-7 h-7 rounded-lg text-white font-bold flex items-center justify-center text-xs shadow-2xs"
@@ -136,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     {user.name.charAt(0)}
                   </div>
                   <div className="hidden sm:block">
-                    <span className="text-xs font-bold text-[#4A443F] block leading-tight truncate max-w-[120px]">
+                    <span className="text-xs font-bold text-[#4A443F] block leading-tight truncate max-w-[130px]">
                       {user.name.split(' ')[0]}
                     </span>
                     <span className={`text-[10px] font-semibold px-1.5 py-0.2 rounded-sm border ${getRoleBadge(user.role).bg}`}>
@@ -152,14 +109,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
                     className="absolute right-0 mt-2 w-72 bg-white rounded-2xl border border-[#E5E2DD] shadow-xl p-3 space-y-2 z-50 animate-in fade-in zoom-in-95"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="p-2 bg-[#F9F8F6] rounded-xl border border-[#E5E2DD]">
+                    <div className="p-2.5 bg-[#F9F8F6] rounded-xl border border-[#E5E2DD]">
                       <span className="text-xs font-bold text-[#4A443F] block">{user.name}</span>
                       <span className="text-[11px] text-[#8C847C] block truncate">{user.email}</span>
                       <span className="text-[10px] text-[#5A6B5D] font-mono block mt-1">ID: {user.rollNumber || user._id}</span>
                     </div>
 
                     <div className="pt-1 space-y-1">
-                      <span className="text-[10px] uppercase font-bold text-[#8C847C] px-2 block">Switch Demo Role</span>
+                      <span className="text-[10px] uppercase font-bold text-[#8C847C] px-2 block">Switch Academic Role</span>
                       <button
                         onClick={() => { quickLogin('student'); setUserMenuOpen(false); }}
                         className="w-full text-left px-2.5 py-1.5 text-xs text-[#4A443F] hover:bg-[#F2EFE9] rounded-lg transition-colors flex items-center justify-between"
@@ -204,53 +161,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab }) => {
             ) : (
               <button
                 onClick={() => openAuthModal('login')}
-                className="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-[#4A443F] bg-[#F2EFE9] hover:bg-[#E5E2DD] border border-[#E5E2DD] rounded-xl transition-colors shadow-2xs"
+                className="inline-flex items-center px-3.5 py-1.5 text-xs font-semibold text-[#4A443F] bg-[#F2EFE9] hover:bg-[#E5E2DD] border border-[#E5E2DD] rounded-xl transition-colors shadow-2xs"
               >
                 <LogIn className="w-3.5 h-3.5 mr-1.5 text-[#5A6B5D]" />
                 Sign In
               </button>
             )}
-
-            <button
-              onClick={() => setActiveTab('mern')}
-              className="hidden lg:inline-flex items-center px-3 py-1.5 text-xs font-semibold text-[#5A6B5D] bg-[#5A6B5D]/10 hover:bg-[#5A6B5D]/20 border border-[#5A6B5D]/25 rounded-xl transition-colors"
-            >
-              <Layers className="w-3.5 h-3.5 mr-1.5" />
-              MongoDB Studio
-            </button>
-
-            <button
-              onClick={handleDownloadZip}
-              disabled={downloading}
-              className={`inline-flex items-center px-3.5 py-1.5 text-xs font-semibold rounded-xl shadow-xs transition-all ${
-                downloaded
-                  ? 'bg-[#4a584c] text-white'
-                  : 'bg-[#5A6B5D] hover:bg-[#4a584c] text-white'
-              }`}
-            >
-              {downloaded ? (
-                <>
-                  <Check className="w-4 h-4 mr-1.5" />
-                  Downloaded ZIP!
-                </>
-              ) : downloading ? (
-                <>
-                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin mr-1.5" />
-                  Building ZIP...
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4 mr-1.5" />
-                  <span className="hidden sm:inline">Download Project (.ZIP)</span>
-                  <span className="sm:hidden">ZIP</span>
-                </>
-              )}
-            </button>
           </div>
         </div>
       </div>
 
-      {/* Navigation Scrollbar */}
+      {/* Navigation Bar */}
       <div className="border-t border-[#E5E2DD] bg-[#F9F8F6] overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-1 py-1.5">
           {navItems.map((item) => {

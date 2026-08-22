@@ -126,7 +126,7 @@ export const AboutView: React.FC = () => {
             >
               {checklist.c1 ? <CheckSquare className="w-4 h-4 text-[#5A6B5D] shrink-0 mt-0.5" /> : <Square className="w-4 h-4 text-[#8C847C] shrink-0 mt-0.5" />}
               <span className={checklist.c1 ? 'line-through text-[#8C847C]' : ''}>
-                Downloaded project .ZIP and verified <code className="text-[#5A6B5D] font-bold">streamlit run app.py</code> opens cleanly on laptop.
+                Verified system dashboard, live grade predictor, and cohort analytics load cleanly.
               </span>
             </div>
 
