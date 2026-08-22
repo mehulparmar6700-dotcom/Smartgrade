@@ -1,0 +1,6 @@
+{
+  "name": "SmartGrade – Student Performance Analysis & Prediction System",
+  "description": "A comprehensive college project for student performance analysis, statistical metrics, ML linear regression prediction, full-stack local server (Express, React, Node.js) with user authentication, REST APIs, Python Streamlit source, Viva guide, and project report.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
